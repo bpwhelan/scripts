@@ -248,16 +248,9 @@ addEventListener('wssStop', function (e) {
 
 /** @param {CustomEvent} e */
 function broadcast(e) {
-    const message = JSON.stringify({
-        process_path: e.detail.target,
-        id: e.detail.id,
-        sentence: e.detail.text,
-        type: e.type
-    });
-
     wss.clients.forEach(function (client) {
         if (client.readyState === WebSocket.OPEN) {
-            client.send(message);
+            client.send(e.detail.text);
         }
     });
 }
